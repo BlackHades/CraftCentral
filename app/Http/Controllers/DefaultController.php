@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\CollectionToPaginate;
 use App\Helpers\WebConstant;
 use App\Repositories\BusinessRepository;
 use App\Repositories\KeywordRepository;
@@ -63,7 +64,7 @@ class DefaultController extends Controller
 
         return view('defaults.home',[
             'title' => 'Home',
-            'search' => $this->sp->get()
+            'search' => (new CollectionToPaginate($this->sp->get()))->paginate(4)
         ]);
     }
 

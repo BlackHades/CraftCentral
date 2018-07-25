@@ -10,6 +10,7 @@ namespace App\Repositories;
 
 
 use App\Models\Business;
+use App\Models\SocialHandle;
 
 class BusinessRepository
 {
@@ -32,5 +33,10 @@ class BusinessRepository
     }
     function getByCategoryAndLga($id, $lga){
         return Business::where(['category_id' => $id,'lga' => $lga])->orderByDesc('id')->get();
+    }
+
+
+    function getSocials($id){
+        return SocialHandle::where('b_id',$id)->first();
     }
 }

@@ -11,7 +11,7 @@ namespace App\Helpers;
 
 class WebConstant
 {
-    public static $MODE = 'production';
+    public static $MODE = 'development';
 
     //Post Type
     public static $GET = 'GET';

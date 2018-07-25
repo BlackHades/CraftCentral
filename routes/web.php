@@ -44,5 +44,6 @@ Route::get('clear', function (){
 
 Route::group(['prefix' => '/','middleware' => 'auth.business'],function (){
     Route::any('profile', 'ProfileController@index')->name('business.profile');
-    Route::post('profile/update/{list}', 'ProfileController@update')->name('business.update');
+    Route::post('profile/update/{type}', 'ProfileController@update')->name('business.update');
+    Route::post('profile/socials/update', 'ProfileController@socials')->name('business.social');
 });

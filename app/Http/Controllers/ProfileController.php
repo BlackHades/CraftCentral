@@ -3,20 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Business;
+use App\Models\SocialHandle;
 use App\Repositories\BusinessRepository;
 use App\Repositories\KeywordRepository;
 use App\Repositories\RatingRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class ProfileController extends Controller
 {
     private $users;
     private $sp;
     private $rt;
+    private $auth;
     public function __construct(BusinessRepository $repository, RatingRepository $ratingRepository)
     {
         $this->sp = $repository;
         $this->rt = $ratingRepository;
+        $this->auth = Auth::guard('business')->user();
+    }
+
+    private function getUser(){
+        return auth()->guard('business')->user();
     }
 
     function index(){
@@ -29,8 +39,38 @@ class ProfileController extends Controller
     }
 
 
-    function update(Request $request, Business $list){
-        return [$request->all(), $list];
+    function update(Request $request){
+        try{
+            $b = auth()->guard('business')->user();
+            $b[$request->type] = $request[$request->type];
+            if($b->save())
+                Session::flash('success',"$request->type updated successfully");
+            else
+                Session::flash('error',"$request->type update failed");
+        }catch (\Exception $ex){
+            Log::error("A fatal error occurred", ['ex' => $ex]);
+            Session::flash('error',"$request->type could not be updated");
+        }
+        return redirect()->back();
+    }
+
+    function socials(Request $request){
+        try{
+            $sh = $this->sp->getSocials($this->getUser()->id);
+            if(!isset($sh)){
+                $sh = new SocialHandle();
+                $sh->b_id = $this->getUser()->id;
+            }
+            $sh[$request->type] = $request[$request->type];
+            if($sh->save())
+                Session::flash('success',"$request->type updated successfully");
+            else
+                Session::flash('error',"$request->type could not be updated");
+        }catch (\Exception $ex){
+            Log::error("A fatal error occurred", ['ex' => $ex]);
+            Session::flash('error',"$request->type could not be updated");
+        }
+        return redirect()->back();
     }
 
     function formular($id){

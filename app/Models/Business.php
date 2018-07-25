@@ -37,5 +37,9 @@ class Business extends Authenticatable
     function service(){
         return $this->hasMany(ServiceRequest::class,'b_id');
     }
+
+    function social(){
+        return $this->hasOne(SocialHandle::class,'b_id');
+    }
 }
 

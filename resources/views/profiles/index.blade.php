@@ -82,6 +82,7 @@
                                                 <li class="hidden" id="toggleEmail">
 
                                                     <form action="{{route('business.update',['type' => 'email'])}}" method="post">
+                                                        {{csrf_field()}}
                                                         <input type="email" name="email" placeholder="New Email Address" style="border-radius:4px; border:1px solid #BBB; font-size:12px; width:80%; padding-left:3px;">
                                                         <br>
                                                         <br>
@@ -106,6 +107,7 @@
                                                 <li class="hidden" id="toggleLocation">
 
                                                     <form action="{{route('business.update',['type' => 'address'])}}" method="post">
+                                                        {{csrf_field()}}
                                                         <input type="text" name="address" placeholder="New Contact Address" style="border-radius:4px; border:1px solid #BBB; font-size:12px; width:90%; height:40px; padding-left:3px;">
                                                         <br>
                                                         <br>
@@ -128,6 +130,7 @@
                                                 <li class="hidden" id="togglePhone">
 
                                                     <form action="{{route('business.update',['type' => 'phone'])}}" method="post">
+                                                        {{csrf_field()}}
                                                         <input type="text" name="phone" placeholder="New Phone Number" maxlength="11" style="border-radius:4px; border:1px solid #BBB; font-size:12px; width:80%; padding-left:3px;">
                                                         <br>
                                                         <br>
@@ -147,12 +150,13 @@
                                         <div class="jp_listing_list_icon_cont_wrapper">
                                             <ul>
                                                 <li>Website</li>
-                                                <li>WEBSITE &nbsp;<i class="fa fa-edit icolor" title="Edit" onClick="openWebsite()"></i></li>
+                                                <li><a href="{{$list->social != null ? $list->social->website : ""}}" target="_blank">{{$list->social != null ? $list->social->website : ""}}</a> &nbsp;<i class="fa fa-edit icolor" title="Edit" onClick="openWebsite()"></i></li>
 
                                                 <li class="hidden" id="toggleWebsite">
 
-                                                    <form action="{{route('business.update',['type' => 'website'])}}" method="post">
-                                                        <input type="url" name="website" placeholder="New Website Url" style="border-radius:4px; border:1px solid #BBB; font-size:12px; width:80%; padding-left:3px;">
+                                                    <form action="{{route('business.social',['type' => 'website'])}}" method="post">
+                                                        {{csrf_field()}}
+                                                        <input type="text" name="website" placeholder="New Website Url" style="border-radius:4px; border:1px solid #BBB; font-size:12px; width:80%; padding-left:3px;">
                                                         <br>
                                                         <br>
                                                         <button type="submit" name="sub_url" class="btn btn-sm btn-primary">Submit</button>
@@ -174,7 +178,19 @@
                                         <div class="jp_listing_list_icon_cont_wrapper">
                                             <ul>
                                                 <li>Work-Hours</li>
-                                                <li>{{$list->work_hours}}</li>
+                                                <li>{{$list->work_hours}} <i class="fa fa-edit icolor" title="Edit" onClick="openWorkHour()"></i></li>
+                                                <li class="hidden" id="toggleWorkHour">
+
+                                                    <form action="{{route('business.update',['type' => 'work_hours'])}}" method="post">
+                                                        {{csrf_field()}}
+                                                        <input type="text" name="work_hours" placeholder="New Work Hours" style="border-radius:4px; border:1px solid #BBB; font-size:12px; width:90%; height:40px; padding-left:3px;">
+                                                        <br>
+                                                        <br>
+                                                        <button type="submit" name="sub_address" class="btn btn-sm btn-primary">Submit</button>
+
+                                                        <i class="fa fa-close text-danger close" id="closeEmail" onClick="CloseWorkHour()" title="close"></i>
+                                                    </form>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -186,7 +202,19 @@
                                         <div class="jp_listing_list_icon_cont_wrapper">
                                             <ul>
                                                 <li>Work-Days</li>
-                                                <li>{{$list->work_days}}</li>
+                                                <li>{{$list->work_days}} <i class="fa fa-edit icolor" title="Edit" onClick="openWorkDay()"></i></li>
+                                                <li class="hidden" id="toggleWorkDay">
+
+                                                    <form action="{{route('business.update',['type' => 'work_days'])}}" method="post">
+                                                        {{csrf_field()}}
+                                                        <input type="text" name="work_days" placeholder="New Work Days" style="border-radius:4px; border:1px solid #BBB; font-size:12px; width:90%; height:40px; padding-left:3px;">
+                                                        <br>
+                                                        <br>
+                                                        <button type="submit" name="sub_address" class="btn btn-sm btn-primary">Submit</button>
+
+                                                        <i class="fa fa-close text-danger close" id="closeEmail" onClick="CloseWorkDay()" title="close"></i>
+                                                    </form>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -196,9 +224,6 @@
                     </div>
 
                 </div>
-
-
-
                 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                     <div class="jp_listing_left_sidebar_wrapper">
                         <div class="jp_job_des">
@@ -212,6 +237,7 @@
                             <div class="hidden" id="toggleDescription">
                                 <p>
                                 <form action="{{route('business.update',['type' => 'descn'])}}" method="post">
+                                    {{csrf_field()}}
                                     <input type="text" name="descn" placeholder="New Business Description "  maxlength="150" style="border-radius:4px; border:1px solid #BBB; font-size:12px; width:80%; height:80px; padding-left:3px;">
                                     <br>
                                     <br>
@@ -220,24 +246,17 @@
                                 </p>
                                 <i class="fa fa-close text-danger close" id="closeEmail" onClick="CloseDescription()" title="close"></i>
                             </div>
-
-
-                            <ul>
-
-                                <li><i class="fa fa-globe"></i>&nbsp;&nbsp; <a href="">http://www.google.com</a></li>
-                                <!-- <li><i class="fa fa-file-pdf-o"></i>&nbsp;&nbsp; <a href="#">Download Info</a></li> -->
-
-                            </ul>
                         </div>
                         <div class="jp_job_res">
                             <h2>Social Networks</h2>
                             <p> </p>
                             <ul>
-                                <li><img src="images/content/46-facebook-512.png" width="30" height="30">&nbsp Facebook &nbsp;<i class="fa fa-edit icolor" title="Edit" onClick="openFacebook()"></i></li>
+                                <li><img src="images/content/46-facebook-512.png" width="30" height="30">&nbsp {{$list->social != null ? $list->social->facebook : ""}} &nbsp;<i class="fa fa-edit icolor" title="Edit" onClick="openFacebook()"></i></li>
                                 <li class="hidden" id="toggleFacebook">
 
-                                    <form action="{{route('business.update',['type' => 'facebook'])}}" method="post">
-                                        <input type="text" name="update_facebook" placeholder="Facebook" style="border-radius:4px; border:1px solid #BBB; font-size:12px; width:70%; padding-left:3px;">
+                                    <form action="{{route('business.social',['type' => 'facebook'])}}" method="post">
+                                        {{csrf_field()}}
+                                        <input type="text" name="facebook" placeholder="Facebook" style="border-radius:4px; border:1px solid #BBB; font-size:12px; width:70%; padding-left:3px;">
                                         <br>
                                         <br>
                                         <button type="submit" name="sub_fb" class="btn btn-sm btn-primary">Submit</button>
@@ -246,11 +265,12 @@
                                     </form>
 
                                 </li>
-                                <li> <img src="images/content/social-media_instagram_flat-circle-white-on-black_512x512.png" width="30" height="30">&nbsp;&nbsp; Instagram &nbsp;<i class="fa fa-edit icolor" title="Edit" onClick="openInstagram()"></i></li>
+                                <li> <img src="images/content/social-media_instagram_flat-circle-white-on-black_512x512.png" width="30" height="30">&nbsp;&nbsp; {{$list->social != null ? $list->social->instagram : ""}} &nbsp;<i class="fa fa-edit icolor" title="Edit" onClick="openInstagram()"></i></li>
                                 <li class="hidden" id="toggleInstagram">
 
-                                    <form action="{{route('business.update',['type' => 'instagram'])}}" method="post">
-                                        <input type="text" name="update_ig" placeholder="Instagram" style="border-radius:4px; border:1px solid #BBB; font-size:12px; width:70%; padding-left:3px;">
+                                    <form action="{{route('business.social',['type' => 'instagram'])}}" method="post">
+                                        {{csrf_field()}}
+                                        <input type="text" name="instagram" placeholder="Instagram" style="border-radius:4px; border:1px solid #BBB; font-size:12px; width:70%; padding-left:3px;">
                                         <br>
                                         <br>
                                         <button type="submit" name="sub_ig" class="btn btn-sm btn-primary">Submit</button>
@@ -260,10 +280,11 @@
                                     </form>
 
                                 </li>
-                                <li><img src="images/content/twitter-2.png" width="30" height="30">&nbsp;&nbsp;  Twitter&nbsp;<i class="fa fa-edit icolor" title="Edit" onClick="openTwitter()"></i></li>
+                                <li><img src="images/content/twitter-2.png" width="30" height="30">&nbsp;&nbsp;  {{$list->social != null ? $list->social->twitter : ""}}&nbsp;<i class="fa fa-edit icolor" title="Edit" onClick="openTwitter()"></i></li>
                                 <li class="hidden" id="toggleTwitter">
 
-                                    <form action="{{route('business.update',['type' => 'twitter'])}}" method="post">
+                                    <form action="{{route('business.social',['type' => 'twitter'])}}" method="post">
+                                        {{csrf_field()}}
                                         <input type="text" name="twitter" placeholder="Twitter" style="border-radius:4px; border:1px solid #BBB; font-size:12px; width:70%; padding-left:3px;">
                                         <br>
                                         <br>
@@ -274,10 +295,11 @@
                                     </form>
 
                                 </li>
-                                <li><img src="images/content/linkedin_circle_black-512.png" width="30" height="30">&nbsp;&nbsp;  LINKEDLN &nbsp;<i class="fa fa-edit icolor" title="Edit" onClick="openLinkedin()"></i></li>
+                                <li><img src="images/content/linkedin_circle_black-512.png" width="30" height="30">&nbsp;&nbsp;  {{$list->social != null ? $list->social->linkedln : ""}} &nbsp;<i class="fa fa-edit icolor" title="Edit" onClick="openLinkedin()"></i></li>
                                 <li class="hidden" id="toggleLinkedin">
 
-                                    <form action="{{route('business.update',['type' => 'email'])}}" method="post">
+                                    <form action="{{route('business.social',['type' => 'linkedln'])}}" method="post">
+                                        {{csrf_field()}}
                                         <input type="text" name="linkedln" placeholder="Linkedin" style="border-radius:4px; border:1px solid #BBB; font-size:12px; width:70%; padding-left:3px;">
                                         <br>
                                         <br>
@@ -442,6 +464,28 @@
 
         function CloseLocation() {
             var element = document.getElementById("toggleLocation");
+            element.classList.add("hidden");
+        }
+
+        function openWorkHour() {
+            var element = document.getElementById("toggleWorkHour");
+            element.classList.remove("hidden");
+        }
+
+
+        function CloseWorkHour() {
+            var element = document.getElementById("toggleWorkHour");
+            element.classList.add("hidden");
+        }
+
+        function openWorkDay() {
+            var element = document.getElementById("toggleWorkDay");
+            element.classList.remove("hidden");
+        }
+
+
+        function CloseWorkDay() {
+            var element = document.getElementById("toggleWorkDay");
             element.classList.add("hidden");
         }
 

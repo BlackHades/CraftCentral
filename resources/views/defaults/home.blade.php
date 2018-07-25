@@ -60,6 +60,75 @@
 
         .jp_job_post_right_cont .rating-default span{background:#8A8A8A;}
 
+        .pager_wrapper{
+            margin-top:80px;
+            text-align:center;
+        }
+        .pagination > li > a{
+            color:#000000;
+            background:#ffffff;
+            font-size:12px;
+            text-transform:uppercase;
+            -webkit-transition: all 0.5s;
+            -o-transition: all 0.5s;
+            -ms-transition: all 0.5s;
+            -moz-transition: all 0.5s;
+            transition: all 0.5s;
+            padding-right: 19px;
+            width:30px;
+            height:30px;
+            line-height:18px;
+            -webkit-border-radius:10px;
+            -moz-border-radius:10px;
+            border-radius:10px;
+            text-align:center;
+            margin-right:10px;
+        }
+        .pagination > li:first-child > a{
+            width:60px;
+            height:30px;
+            line-height:17px;
+            text-align:center;
+            font-size:12px;
+            color:#000000;
+            -webkit-border-radius:10px;
+            -moz-border-radius:10px;
+            border-radius:10px;
+            border:1px solid #e2e2e2;
+            margin-right:20px;
+            background:#ffffff;
+            padding-left: 17px;
+        }
+        .pagination > li:last-child > a{
+            width:60px;
+            height:30px;
+            line-height:17px;
+            text-align:center;
+            font-size:12px;
+            -webkit-border-radius:10px;
+            -moz-border-radius:10px;
+            border-radius:10px;
+            border:1px solid #e2e2e2;
+            margin-left:10px;
+            background:#ffffff;
+            padding-left: 14px;
+        }
+        .pagination > li:first-child:hover > a{
+            background:#23c0e9;
+            border:1px solid #23c0e9;
+        }
+        .pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus {
+            z-index: 2;
+            color: #fff;
+            border:1px solid #23c0e9;
+            background-color: #23c0e9;
+            border-color: none;
+            -webkit-transition: all 0.5s;
+            -o-transition: all 0.5s;
+            -ms-transition: all 0.5s;
+            -moz-transition: all 0.5s;
+            transition: all 0.5s;
+        }
     </style>
 
 </head>
@@ -610,8 +679,8 @@
                                             <!--  </div> -->
                                         </div>
                                         @endforeach
-
-
+                                            <?php $data = $search->toArray();?>
+                                            @include('partials._paginator')
                                     </div>
                                 </div>
                                 <!--    -->
