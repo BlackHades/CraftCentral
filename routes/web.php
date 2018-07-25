@@ -36,6 +36,12 @@ Route::group(['prefix' => '/','middleware' => 'auth.customer'],function (){
    });
 });
 
+Route::get('clear', function (){
+    \Illuminate\Support\Facades\Artisan::call("cache:clear");
+    \Illuminate\Support\Facades\Artisan::call("config:cache");
+    dd('done');
+});
+
 Route::group(['prefix' => '/','middleware' => 'auth.business'],function (){
     Route::any('profile', 'ProfileController@index')->name('business.profile');
     Route::post('profile/update/{list}', 'ProfileController@update')->name('business.update');
