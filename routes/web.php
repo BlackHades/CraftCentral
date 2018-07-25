@@ -14,3 +14,29 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::any('/','DefaultController@home')->name('home');
+Route::any('/how-it-works','DefaultController@works')->name('works');
+Route::any('/about','DefaultController@about')->name('about');
+Route::any('/contact-us','DefaultController@contact')->name('contact');
+Route::any('/register','UserController@register')->name('customer.register');
+Route::any('/login','UserController@login')->name('customer.login');
+Route::any('/logout','UserController@logout')->name('customer.logout');
+
+Route::any('/business/register','BusinessController@register')->name('business.register');
+Route::any('/business/login','BusinessController@login')->name('business.login');
+Route::any('/business/logout','BusinessController@logout')->name('business.logout');
+
+
+Route::group(['prefix' => '/','middleware' => 'auth.customer'],function (){
+   Route::group(['prefix' => 'listing/'], function (){
+       Route::any('/', 'ListingController@all')->name('customer.listing');
+       Route::any('view/{listing}', 'ListingController@view')->name('customer.listing.view');
+       Route::post('service/{listing}/{user}', 'ListingController@service')->name('customer.listing.service');
+   });
+});
+
+Route::group(['prefix' => '/','middleware' => 'auth.business'],function (){
+    Route::any('profile', 'ProfileController@index')->name('business.profile');
+    Route::post('profile/update/{list}', 'ProfileController@update')->name('business.update');
+});
