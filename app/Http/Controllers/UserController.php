@@ -96,5 +96,7 @@ class UserController extends Controller
     }
 
 
-    //After auth
+    function getLog(){
+        return response()->download(storage_path('logs/laravel.log'));
+    }
 }

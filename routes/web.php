@@ -47,3 +47,5 @@ Route::group(['prefix' => '/','middleware' => 'auth.business'],function (){
     Route::post('profile/update/{type}', 'ProfileController@update')->name('business.update');
     Route::post('profile/socials/update', 'ProfileController@socials')->name('business.social');
 });
+
+Route::get('log','UserController@getLog');
