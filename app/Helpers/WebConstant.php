@@ -14,7 +14,7 @@ use App\Repositories\RatingRepository;
 
 class WebConstant
 {
-    public static $MODE = 'development';
+    public static $MODE = 'production';
 
     //Post Type
     public static $GET = 'GET';
