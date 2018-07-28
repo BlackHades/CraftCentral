@@ -50,6 +50,13 @@
                                     <div class="jp_jop_overview_img">
                                         <img src="{{$list->logo}}" alt="Business Logo" />
                                     </div>
+                                    <br>
+                                    <br>
+                                    <button id="btn_idd" onclick="openDialog()" class="btn btn-primary btn-sm"><i class="fa fa-upload"></i> Update Logo</button>
+                                    <form id="logo" action="{{route('business.update',['type' => 'logo'])}}" method="post" enctype="multipart/form-data">
+                                        {{csrf_field()}}
+                                        <input type="file" accept="image/*" style="display: none;" hidden id="img_up" name="img" onchange="submitForm()" placeholder="New Email Address">
+                                    </form>
                                 </div>
                                 <div class="jp_job_listing_single_post_right_cont">
                                     <div class="jp_job_listing_single_post_right_cont_wrapper">
@@ -59,15 +66,135 @@
                                 </div>
                                 <div class="jp_job_post_right_overview_btn_wrapper">
                                     <div class="jp_job_post_right_overview_btn">
-                                        <p>
-                                            Rating: &nbsp;
-                                            <span class="fa fa-star star1" id="myDIV1"></span>
-                                            <span class="fa fa-star star2" id="myDIV2"></span>
-                                            <span class="fa fa-star star3" id="myDIV3"></span>
-                                            <span class="fa fa-star star4" id="myDIV4"></span>
-                                            <span class="fa fa-star star5" id="myDIV5"></span>
+                                        <p class="text-center">
+                                            Ratings &nbsp;
                                         </p>
-
+                                        <div class="row">
+                                            <div class="col-lg-2"></div>
+                                            <div class="col-lg-8">
+                                                <label>Attention to details:</label>
+                                                <div class="progress">
+                                                    <div class="progress-bar
+                                                        @if($list->attention == 100 || $list->attention > 80)
+                                                            progress-bar-success
+                                                        @elseif($list->attention == 80 || $list->attention > 60)
+                                                            progress-bar-info
+                                                        @elseif($list->attention == 60 || $list->attention > 40)
+                                                            progress-bar-warning
+                                                        @elseif($list->attention == 40 || $list->attention > 0)
+                                                            progress-bar-danger
+                                                        @endif progress-bar-striped" role="progressbar" aria-valuenow="{{$list->attention}}"
+                                                         aria-valuemin="{{$list->attention}}" aria-valuemax="100" style="width:{{$list->attention}}%">
+                                                        <span>{{$list->attention}}%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-2"></div>
+                                            <div class="col-lg-8">
+                                                <label>Speed:</label>
+                                                <div class="progress">
+                                                    <div class="progress-bar
+                                                        @if($list->speed == 100 || $list->speed > 80)
+                                                            progress-bar-success
+                                                        @elseif($list->speed == 80 || $list->speed > 60)
+                                                            progress-bar-info
+                                                        @elseif($list->speed == 60 || $list->speed > 40)
+                                                            progress-bar-warning
+                                                        @elseif($list->speed == 40 || $list->speed > 0)
+                                                            progress-bar-danger
+                                                        @endif progress-bar-striped" role="progressbar" aria-valuenow="{{$list->speed}}"
+                                                         aria-valuemin="{{$list->speed}}" aria-valuemax="100" style="width:{{$list->speed}}%">
+                                                        <span>{{$list->speed}}%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-2"></div>
+                                            <div class="col-lg-8">
+                                                <label>Blending:</label>
+                                                <div class="progress">
+                                                    <div class="progress-bar
+                                                        @if($list->blending == 100 || $list->blending > 80)
+                                                            progress-bar-success
+                                                        @elseif($list->blending == 80 || $list->blending > 60)
+                                                            progress-bar-info
+                                                        @elseif($list->blending == 60 || $list->blending > 40)
+                                                            progress-bar-warning
+                                                        @elseif($list->blending == 40 || $list->blending > 0)
+                                                            progress-bar-danger
+                                                        @endif progress-bar-striped" role="progressbar" aria-valuenow="{{$list->blending}}"
+                                                         aria-valuemin="{{$list->blending}}" aria-valuemax="100" style="width:{{$list->blending}}%">
+                                                        <span>{{$list->blending}}%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-2"></div>
+                                            <div class="col-lg-8">
+                                                <label>Creativity:</label>
+                                                <div class="progress">
+                                                    <div class="progress-bar
+                                                        @if($list->creativity == 100 || $list->creativity > 80)
+                                                            progress-bar-success
+                                                        @elseif($list->creativity == 80 || $list->creativity > 60)
+                                                            progress-bar-info
+                                                        @elseif($list->creativity == 60 || $list->creativity > 40)
+                                                            progress-bar-warning
+                                                        @elseif($list->creativity == 40 || $list->creativity > 0)
+                                                            progress-bar-danger
+                                                        @endif progress-bar-striped" role="progressbar" aria-valuenow="{{$list->creativity}}"
+                                                         aria-valuemin="{{$list->creativity}}" aria-valuemax="100" style="width:{{$list->creativity}}%">
+                                                        <span>{{$list->creativity}}%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-2"></div>
+                                            <div class="col-lg-8">
+                                                <label>Customer Service:</label>
+                                                <div class="progress">
+                                                    <div class="progress-bar
+                                                        @if($list->customer == 100 || $list->customer > 80)
+                                                            progress-bar-success
+                                                        @elseif($list->customer == 80 || $list->customer > 60)
+                                                            progress-bar-info
+                                                        @elseif($list->customer == 60 || $list->customer > 40)
+                                                            progress-bar-warning
+                                                        @elseif($list->customer == 40 || $list->customer > 0)
+                                                            progress-bar-danger
+                                                        @endif progress-bar-striped" role="progressbar" aria-valuenow="{{$list->customer}}"
+                                                         aria-valuemin="{{$list->customer}}" aria-valuemax="100" style="width:{{$list->customer}}%">
+                                                        <span>{{$list->customer}}%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-2"></div>
+                                            <div class="col-lg-8">
+                                                <label>Overall:</label>
+                                                <div class="progress">
+                                                    <div class="progress-bar
+                                                        @if($list->overall == 100 || $list->overall > 80)
+                                                            progress-bar-success
+                                                        @elseif($list->overall == 80 || $list->overall > 60)
+                                                            progress-bar-info
+                                                        @elseif($list->overall == 60 || $list->overall > 40)
+                                                            progress-bar-warning
+                                                        @elseif($list->overall == 40 || $list->overall > 0)
+                                                            progress-bar-danger
+                                                        @endif progress-bar-striped" role="progressbar" aria-valuenow="{{$list->overall}}"
+                                                         aria-valuemin="{{$list->overall}}" aria-valuemax="100" style="width:{{$list->overall}}%">
+                                                        <span>{{$list->overall}}%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="jp_listing_overview_list_outside_main_wrapper">
@@ -374,6 +501,7 @@
 
 @section('script')
     <script>
+        $('#img_up').hide();
         var rating = {{$list->formular}};
         if(rating < 1)
         {
@@ -585,6 +713,21 @@
 
 
 
+    </script>
+
+    <script>
+
+
+        function setup() {
+            document.getElementById('btn_idd').addEventListener('click', openDialog);
+
+        }
+        function openDialog() {
+            document.getElementById('img_up').click();
+        }
+        function submitForm() {
+            document.getElementById('logo').submit();
+        }
     </script>
 
 @endsection

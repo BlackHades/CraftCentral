@@ -61,12 +61,26 @@ class ListingController extends Controller
             if($request->method() == WebConstant::$POST){
                 //dd($request->all(), $listing);
                 $this->validate($request,[
-                    'rating' => 'required'
+                    'attention' => 'required',
+                    'speed' => 'required',
+                    'blending' => 'required',
+                    'creativity' => 'required',
+                    'customer' => 'required',
+                ],[
+                    'attention.required' => 'Attention to details rating field is required',
+                    'speed.required' => 'Speed rating field is required',
+                    'blending.required' => 'Blending rating field is required',
+                    'creativity.required' => 'Creativity rating field is required',
+                    'customer.required' => 'Customer rating field is required',
                 ]);
                 $ratings = new BusinessRating();
                 $ratings->user_id = $request->user;
                 $ratings->b_id = $listing->id;
-                $ratings->rating_id = $request->rating;
+                $ratings->attention = $request->attention;
+                $ratings->speed = $request->speed;
+                $ratings->blending = $request->blending;
+                $ratings->creativity = $request->creativity;
+                $ratings->customer = $request->customer;
                 if($ratings->save())
                   Session::flash('success','Thank You for rating this service.');
                 else
@@ -74,6 +88,7 @@ class ListingController extends Controller
 
                 return redirect()->back();
             }
+            $listing = WebConstant::ratings($listing);
             return view('listings.view',[
                 'title' => "View Listing",
                 'listing' => $listing,

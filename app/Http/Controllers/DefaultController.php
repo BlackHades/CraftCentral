@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\CollectionToPaginate;
 use App\Helpers\WebConstant;
+use App\Models\Business;
 use App\Repositories\BusinessRepository;
 use App\Repositories\KeywordRepository;
 use App\Repositories\RatingRepository;
@@ -43,11 +44,8 @@ class DefaultController extends Controller
                     $search = $search->merge($this->sp->getByCategoryAndState($k, $request->lga));
             }
             for($i=0;$i<count($search);$i++){
-                $search[$i]->formular = (0 * $this->rt->notGood($search[$i]->id) + 1 * $this->rt->good($search[$i]->id) + 2 * $this->rt->quiteGood($search[$i]->id) + 3 * $this->rt->veryGood($search[$i]->id) + 4 * $this->rt->excellent($search[$i]->id)) / 10;
+                $search[$i] = WebConstant::ratings($search[$i]);
             }
-
-            //dd($search);
-
             return view('defaults.home',[
                 'title' => 'Home',
                 'search' => $search
@@ -61,12 +59,23 @@ class DefaultController extends Controller
         if(auth()->guard('business')->check())
             return redirect()->action('ProfileController@index');
 
-
+        if(isset($request->category))
+            $search = $this->sp->getByCategory($request->category);
+        else
+            $search = $this->sp->get();
+        for($i=0;$i<count($search);$i++){
+            $search[$i] = WebConstant::ratings($search[$i]);
+        }
+       // dd($search);
         return view('defaults.home',[
             'title' => 'Home',
-            'search' => (new CollectionToPaginate($this->sp->get()))->paginate(4)
+            'search' => (new CollectionToPaginate($search))->paginate(4),
+            'list' => $this->sp->get(),
+            'cat' => $this->sp->getRandomCategory()
         ]);
     }
+
+
 
     function works(){
         return view('defaults.how',[

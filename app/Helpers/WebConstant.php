@@ -9,43 +9,16 @@
 namespace App\Helpers;
 
 
+use App\Models\Business;
+use App\Repositories\RatingRepository;
+
 class WebConstant
 {
-    public static $MODE = 'production';
+    public static $MODE = 'development';
 
     //Post Type
     public static $GET = 'GET';
     public static $POST = 'POST';
-
-
-    //User Type
-    public static $DEV = 1;
-    public static $SUPER_ADMIN = 2;
-    public static $ADMIN = 3;
-    public static $BT_KAIZEN = 4;
-    public static $PARTNER = 5;
-    public static $OTHERS = 6;
-
-    //Access
-    public static $ACCESS_DEV = 10;
-    public static $ACCESS_SUPER_ADMIN = 5;
-    public static $ACCESS_ADMIN = 4;
-    public static $ACCESS_BT_KAIZEN = 3;
-    public static $ACCESS_PARTNER = 2;
-    public static $ACCESS_OTHERS = 1;
-
-
-    //Emails
-    public static  $CONTACT_EMAIL  = 'contacts@tsf.com.ng';
-    public static  $REQUEST_EMAIL  = 'requests@tsf.com.ng';
-    public static  $COMPLAINT_EMAIL  = 'complaints@tsf.com.ng';
-    public static  $GENERAL_EMAIL  = 'general@tsf.com.ng';
-    public static  $SUPPORT_EMAIL  = 'support@tsf.com.ng';
-
-
-    //Onboard
-    public static $ONBOARD_LANGUAGES = ["ENGLISH",'SWAHILI',"AMHARIC","YORUBA","OROMO","HAUSA","IGBO","ZULU","SHONA","ARABIC","PORTUGUESE","FRENCH"];
-
 
 
     //Defaults
@@ -56,16 +29,31 @@ class WebConstant
         return "https://ui-avatars.com/api/?name=$name&background=0D8ABC&color=fff&rounded=true";
     }
 
+    static  function ratings(Business $list){
+        $ratings = (new RatingRepository())->get($list->id);
+        $list->attention = 0;
+        $list->speed = 0;
+        $list->blending = 0;
+        $list->creativity =0;
+        $list->customer = 0;
+        $list->overall = 0;
+        //Attention
+        //dd($ratings);
+        for($i = 0; $i < count($ratings); $i++){
+            $list->attention += $ratings[$i]->attention;
+            $list->speed += $ratings[$i]->speed;
+            $list->blending += $ratings[$i]->blending;
+            $list->creativity += $ratings[$i]->creativity;
+            $list->customer += $ratings[$i]->customer;
+        }
 
-    static function FULL_URL(){
-        if(self::$MODE == "production")
-            return "http://tsf.com.ng/";
-        return "http://localhost:8000/";
+        $list->attention = $list->attention == 0 ? 0 : ($list->attention / (count($ratings) * 5)) * 100;
+        $list->speed =  $list->speed == 0 ? 0 : ($list->attention / (count($ratings) * 5)) * 100;
+        $list->blending =  $list->blending == 0 ? 0 : ($list->attention / (count($ratings) * 5)) * 100;
+        $list->creativity =  $list->creativity == 0 ? 0 : ($list->attention / (count($ratings) * 5)) * 100;
+        $list->customer =  $list->customer == 0 ? 0 : ($list->attention / (count($ratings) * 5)) * 100;
+        $list->overall = (($list->attention + $list->speed + $list->blending + $list->creativity + $list->customer)/500) * 100;
+        return $list;
     }
 
-    //Arrays
-    public static $CONTINENT = ["Africa","Asia","Australia","China","Europe","North America","South America","Russia","United Kingdom"];
-    public static $LOCATION = ["Lagos","Abuja","Port Harcourt","Ibadan","Oyo","Cape Town","Cairo","Addis Ababa","Johannesburg",
-        "Arusha","Nairobi","Tripoli","Enugu","Uyo","Calabar","Onitcha","Ugheli","Asaba","Benin","Ore","Owerri","Others (Please Name the City)"];
-    public static $CONTACT_SUBJECT = ["Products & Services","Blog / Vlog Topics","Request for Proposal","BT’s Enlistment Criteria","Office Locations","Others (Please Indicate)"];
 }

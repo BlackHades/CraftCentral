@@ -18,6 +18,10 @@ class RatingRepository
         return Rating::orderByDesc('id')->get();
     }
 
+    function get($b_id){
+        return BusinessRating::where(['b_id' => $b_id])->get();
+    }
+
     function excellent($b_id){
         return count(BusinessRating::where(['b_id' => $b_id,'rating_id' => 5])->get());
     }

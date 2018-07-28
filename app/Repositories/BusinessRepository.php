@@ -10,6 +10,7 @@ namespace App\Repositories;
 
 
 use App\Models\Business;
+use App\Models\BusinessCategory;
 use App\Models\SocialHandle;
 
 class BusinessRepository
@@ -38,5 +39,9 @@ class BusinessRepository
 
     function getSocials($id){
         return SocialHandle::where('b_id',$id)->first();
+    }
+
+    function getRandomCategory(){
+        return BusinessCategory::inRandomOrder()->take(5)->get();
     }
 }

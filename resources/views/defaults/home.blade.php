@@ -299,12 +299,9 @@
                         <div class="jp_banner_main_jobs">
                             <ul>
                                 <li><i class="fa fa-tags"></i> Trending Keywords :</li>
-                                <li><a href="#">Make-up ,</a></li>
-                                <li><a href="#">Developer,</a></li>
-                                <li><a href="#">Manicure </a></li>
-                                <li><a href="#">Bike repairs,</a></li>
-                                <li><a href="#">Laptop repairs,</a></li>
-                                <li><a href="#">call center</a></li>
+                                @foreach($cat as $c)
+                                    <li><a href="{{route('home',['category' => $c->id])}}">{{$c->name}}</a></li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -314,45 +311,19 @@
     </div>
     <div class="jp_banner_jobs_categories_wrapper">
         <div class="container">
-            <div class="jp_top_jobs_category_wrapper jp_job_cate_left_border jp_job_cate_left_border_bottom">
-                <div class="jp_top_jobs_category">
-                    <i class="fa fa-pencil-alt"></i>
-                    <h3><a href="#">Makeup & Beauty</a></h3>
-                    <!-- <p>(240 jobs)</p> -->
+            @foreach($cat as $c)
+                <div class="jp_top_jobs_category_wrapper jp_job_cate_left_border jp_job_cate_left_border_bottom">
+                    <div class="jp_top_jobs_category">
+                        <i class="fa fa-pencil-alt"></i>
+                        <h3><a href="{{route('home',['category' => $c->id])}}">{{$c->name}}</a></h3>
+                        <!-- <p>(240 jobs)</p> -->
+                    </div>
                 </div>
-            </div>
-            <div class="jp_top_jobs_category_wrapper jp_job_cate_left_border_bottom">
-                <div class="jp_top_jobs_category">
-                    <i class="fa fa-scissors"></i>
-                    <h3><a href="#">Tailoring & Clothe</a></h3>
-                    <!-- <p>(504 jobs)</p> -->
-                </div>
-            </div>
-            <div class="jp_top_jobs_category_wrapper jp_job_cate_left_border_bottom">
-                <div class="jp_top_jobs_category">
-                    <i class="fa fa-code"></i>
-                    <h3><a href="#">Web Development & Design</a></h3>
-                    <!--  <p>(2250 jobs)</p> -->
-                </div>
-            </div>
-            <div class="jp_top_jobs_category_wrapper jp_job_cate_left_border_res">
-                <div class="jp_top_jobs_category">
-                    <i class="fa fa-car"></i>
-                    <h3><a href="#">Auto Services</a></h3>
-                    <!--  <p>(202 jobs)</p> -->
-                </div>
-            </div>
-            <div class="jp_top_jobs_category_wrapper">
-                <div class="jp_top_jobs_category">
-                    <i class="fa fa-pencil-square"></i>
-                    <h3><a href="#">Artistry & Sculpting</a></h3>
-                    <!-- <p>(1457 jobs)</p> -->
-                </div>
-            </div>
+            @endforeach
             <div class="jp_top_jobs_category_wrapper">
                 <div class="jp_top_jobs_category">
                     <i class="fa fa-th-large"></i>
-                    <h3><a href="#">All Categories</a></h3>
+                    <h3><a href="{{route('home')}}">All Categories</a></h3>
                     <!-- <p>(2000+ jobs)</p> -->
                 </div>
             </div>
@@ -379,225 +350,104 @@
         <div class="jp_tittle_slider_wrapper">
             <div class="jp_tittle_slider_content_wrapper">
                 <div class="owl-carousel owl-theme">
-                    <div class="item">
-                        <div class="jp_tittle_slides_one">
-                            <div class="jp_tittle_side_img_wrapper">
-                                <img src="images/content/tittle_img1.png" alt="tittle_img" />
+                    <?php $count = (int) count($list)/3?>
+                        @for($i = 0; $i < $count; $i = $i+3)
+                            <?php $rows = $list[$i]?>
+                            <div class="item">
+                                <div class="jp_tittle_slides_one">
+                                    <div class="jp_tittle_side_img_wrapper">
+                                        <img src="{{$rows->logo}}" alt="tittle_img" />
+                                    </div>
+                                    <div class="jp_tittle_side_cont_wrapper">
+                                        <div class="col-lg-12">
+                                            <div class="progress">
+                                                <div class="progress-bar
+                                                                                        @if($rows->overall == 100 || $rows->overall > 80)
+                                                        progress-bar-success
+@elseif($rows->overall == 80 || $rows->overall > 60)
+                                                        progress-bar-info
+@elseif($rows->overall == 60 || $rows->overall > 40)
+                                                        progress-bar-warning
+@elseif($rows->overall == 40 || $rows->overall > 0)
+                                                        progress-bar-danger
+@endif progress-bar-striped" role="progressbar" aria-valuenow="{{$rows->overall}}"
+                                                     aria-valuemin="{{$rows->overall}}" aria-valuemax="100" style="width:{{$rows->overall}}%">
+                                                    <span>{{$rows->overall}}%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <a href="{{route('customer.listing.view',['listing' => $rows->id])}}"><h4>{{$rows->name}}</h4></a>
+                                        <p>{{$rows->category->name}}</p>
+                                    </div>
+                                </div>
+                                <?php $rows = $list[$i+1]?>
+                                <div class="jp_tittle_slides_one jp_tittle_slides_two">
+                                    <div class="jp_tittle_side_img_wrapper">
+                                        <img src="{{$rows->logo}}" alt="tittle_img" />
+                                    </div>
+                                    <div class="jp_tittle_side_cont_wrapper">
+                                        <div class="col-lg-12">
+                                            <div class="progress">
+                                                <div class="progress-bar
+                                                                                        @if($rows->overall == 100 || $rows->overall > 80)
+                                                        progress-bar-success
+@elseif($rows->overall == 80 || $rows->overall > 60)
+                                                        progress-bar-info
+@elseif($rows->overall == 60 || $rows->overall > 40)
+                                                        progress-bar-warning
+@elseif($rows->overall == 40 || $rows->overall > 0)
+                                                        progress-bar-danger
+@endif progress-bar-striped" role="progressbar" aria-valuenow="{{$rows->overall}}"
+                                                     aria-valuemin="{{$rows->overall}}" aria-valuemax="100" style="width:{{$rows->overall}}%">
+                                                    <span>{{$rows->overall}}%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <a href="{{route('customer.listing.view',['listing' => $rows->id])}}"><h4>{{$rows->name}}</h4></a>
+                                        <p>{{$rows->category->name}}</p>
+                                    </div>
+
+
+
+                                </div>
+                                <?php $rows = $list[$i+2]?>
+                                <div class="jp_tittle_slides_one jp_tittle_slides_third">
+                                    <div class="jp_tittle_side_img_wrapper">
+                                        <img src="{{$rows->logo}}" alt="tittle_img" />
+                                    </div>
+                                    <div class="jp_tittle_side_cont_wrapper">
+                                        <div class="col-lg-12">
+                                            <div class="progress">
+                                                <div class="progress-bar
+                                                                                        @if($rows->overall == 100 || $rows->overall > 80)
+                                                        progress-bar-success
+@elseif($rows->overall == 80 || $rows->overall > 60)
+                                                        progress-bar-info
+@elseif($rows->overall == 60 || $rows->overall > 40)
+                                                        progress-bar-warning
+@elseif($rows->overall == 40 || $rows->overall > 0)
+                                                        progress-bar-danger
+@endif progress-bar-striped" role="progressbar" aria-valuenow="{{$rows->overall}}"
+                                                     aria-valuemin="{{$rows->overall}}" aria-valuemax="100" style="width:{{$rows->overall}}%">
+                                                    <span>{{$rows->overall}}%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <a href="{{route('customer.listing.view',['listing' => $rows->id])}}"><h4>{{$rows->name}}</h4></a>
+                                        <p>{{$rows->category->name}}</p>
+                                    </div>
+
+
+
+                                </div>
                             </div>
-
-
-                            <div class="jp_tittle_side_cont_wrapper">
-                                <p>
-
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-
-                                </p>
-
-                                <br>
-
-
-                                <h4>Mj Makeovers</h4>
-                                <p>Make-up Artistry </p>
-
-                            </div>
-
-
-
-                        </div>
-                        <div class="jp_tittle_slides_one jp_tittle_slides_two">
-                            <div class="jp_tittle_side_img_wrapper">
-                                <img src="images/content/tittle_img2.png" alt="tittle_img" />
-                            </div>
-                            <div class="jp_tittle_side_cont_wrapper">
-                                <p>
-
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-
-                                </p>
-
-
-                                <h4>Oneflare Tech Solutions</h4>
-                                <p>Technology</p>
-
-                            </div>
-
-
-
-                        </div>
-                        <div class="jp_tittle_slides_one jp_tittle_slides_third">
-                            <div class="jp_tittle_side_img_wrapper">
-                                <img src="images/content/tittle_img3.png" alt="tittle_img" />
-                            </div>
-                            <div class="jp_tittle_side_cont_wrapper">
-                                <p>
-
-                                    <!-- <span class="fa fa-star checked"></span> -->
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-
-                                </p>
-
-
-                                <h4>Planet Solutions</h4>
-                                <p>Repairs</p>
-                            </div>
-
-
-
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="jp_tittle_slides_one">
-                            <div class="jp_tittle_side_img_wrapper">
-                                <img src="images/content/tittle_img2.png" alt="tittle_img" />
-                            </div>
-                            <div class="jp_tittle_side_cont_wrapper">
-                                <p>
-
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-
-                                </p>
-
-
-                                <h4>OLM Sales Services</h4>
-                                <p>Sales</p>
-                            </div>
-
-
-
-                        </div>
-                        <div class="jp_tittle_slides_one jp_tittle_slides_two">
-                            <div class="jp_tittle_side_img_wrapper">
-                                <img src="images/content/tittle_img3.png" alt="tittle_img" />
-                            </div>
-                            <div class="jp_tittle_side_cont_wrapper">
-                                <p>
-
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-
-                                </p>
-
-                                <h4>Oxygen Manicure & Pedicure</h4>
-                                <p>Personal Care </p>
-                            </div>
-
-
-
-                        </div>
-                        <div class="jp_tittle_slides_one jp_tittle_slides_third">
-                            <div class="jp_tittle_side_img_wrapper">
-                                <img src="images/content/tittle_img1.png" alt="tittle_img" />
-                            </div>
-                            <div class="jp_tittle_side_cont_wrapper">
-                                <p>
-
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-
-                                </p>
-
-
-                                <h4>FAA Arts</h4>
-                                <p>Artistry & Sculpting.</p>
-                            </div>
-
-
-
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="jp_tittle_slides_one">
-                            <div class="jp_tittle_side_img_wrapper">
-                                <img src="images/content/tittle_img3.png" alt="tittle_img" />
-                            </div>
-                            <div class="jp_tittle_side_cont_wrapper">
-                                <p>
-
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-
-                                </p>
-
-                                <h4>House of Makela </h4>
-                                <p>Tailoring & Designs</p>
-                            </div>
-
-
-
-
-                        </div>
-                        <div class="jp_tittle_slides_one jp_tittle_slides_two">
-                            <div class="jp_tittle_side_img_wrapper">
-                                <img src="images/content/tittle_img1.png" alt="tittle_img" />
-                            </div>
-                            <div class="jp_tittle_side_cont_wrapper">
-                                <p>
-
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-
-                                </p>
-
-
-                                <h4>BellGold Travels</h4>
-                                <p>Services</p>
-                            </div>
-
-
-
-                        </div>
-                        <div class="jp_tittle_slides_one jp_tittle_slides_third">
-                            <div class="jp_tittle_side_img_wrapper">
-                                <img src="images/content/tittle_img2.png" alt="tittle_img" />
-                            </div>
-                            <div class="jp_tittle_side_cont_wrapper">
-                                <p>
-
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-
-                                </p>
-
-
-                                <h4>Phone Repairs </h4>
-                                <p>Auto Service </p>
-                            </div>
-
-
-
-                        </div>
-                    </div>
+                        @endfor
                 </div>
             </div>
         </div>
@@ -626,12 +476,6 @@
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane fade in active" id="best">
                                 <div class="ss_featured_products">
-
-
-
-
-
-
                                     <div class="row">
                                         @foreach($search as $rows)
                                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -643,12 +487,25 @@
                                                                 <img src="{{$rows->logo}}" alt="Business Logo" />
                                                             </div>
                                                             <div class="jp_job_post_right_cont">
-                                                                <ul>
-                                                                    <li class='star-block' data-rate='{{$rows->formular}}'>
-                                                                    </li>
-                                                                </ul>
-                                                                <br>
-                                                                <br>
+                                                                <div class="row">
+                                                                    <div class="col-lg-12">
+                                                                        <div class="progress">
+                                                                            <div class="progress-bar
+                                                                                        @if($rows->overall == 100 || $rows->overall > 80)
+                                                                                    progress-bar-success
+@elseif($rows->overall == 80 || $rows->overall > 60)
+                                                                                    progress-bar-info
+@elseif($rows->overall == 60 || $rows->overall > 40)
+                                                                                    progress-bar-warning
+@elseif($rows->overall == 40 || $rows->overall > 0)
+                                                                                    progress-bar-danger
+@endif progress-bar-striped" role="progressbar" aria-valuenow="{{$rows->overall}}"
+                                                                                 aria-valuemin="{{$rows->overall}}" aria-valuemax="100" style="width:{{$rows->overall}}%">
+                                                                                <span>{{$rows->overall}}%</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                                 <h4>{{$rows->name}}</h4>
                                                                 <p>{{$rows->category->name}}</p>
                                                             </div>
@@ -657,8 +514,8 @@
                                                             <div class="jp_job_post_right_btn_wrapper">
                                                                 <ul>
                                                                     <li>  </li>
-                                                                    <li><a href="user-login.php">Check Reviews</a></li>
-                                                                    <li><a href="user-login.php">More details</a></li>
+                                                                    <li><a href="{{route('customer.listing.view',['listing' => $rows->id])}}">Check Reviews</a></li>
+                                                                    <li><a href="{{route('customer.listing.view',['listing' => $rows->id])}}">More details</a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>

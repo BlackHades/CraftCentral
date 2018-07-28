@@ -58,20 +58,135 @@
                                 </div>
                                 <div class="jp_job_post_right_overview_btn_wrapper">
                                     <div class="jp_job_post_right_overview_btn">
-                                        <!--<ul>
-                                            <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
-                                            <li><a href="#">Part Time</a></li>
-                                        </ul> -->
-
-                                        <p>
-
-                                            Rating: &nbsp;
-                                            <span class="fa fa-star star1" id="myDIV1"></span>
-                                            <span class="fa fa-star star2" id="myDIV2"></span>
-                                            <span class="fa fa-star star3" id="myDIV3"></span>
-                                            <span class="fa fa-star star4" id="myDIV4"></span>
-                                            <span class="fa fa-star star5" id="myDIV5"></span>
+                                        <p class="text-center">
+                                            Ratings &nbsp;
                                         </p>
+                                        <div class="row">
+                                            <div class="col-lg-2"></div>
+                                            <div class="col-lg-8">
+                                                <label>Attention to details:</label>
+                                                <div class="progress">
+                                                    <div class="progress-bar
+                                                        @if($listing->attention == 100 || $listing->attention > 80)
+                                                            progress-bar-success
+                                                        @elseif($listing->attention == 80 || $listing->attention > 60)
+                                                            progress-bar-info
+                                                        @elseif($listing->attention == 60 || $listing->attention > 40)
+                                                            progress-bar-warning
+                                                        @elseif($listing->attention == 40 || $listing->attention > 0)
+                                                            progress-bar-danger
+                                                        @endif progress-bar-striped" role="progressbar" aria-valuenow="{{$listing->attention}}"
+                                                         aria-valuemin="{{$listing->attention}}" aria-valuemax="100" style="width:{{$listing->attention}}%">
+                                                        <span>{{$listing->attention}}%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-2"></div>
+                                            <div class="col-lg-8">
+                                                <label>Speed:</label>
+                                                <div class="progress">
+                                                    <div class="progress-bar
+                                                        @if($listing->speed == 100 || $listing->speed > 80)
+                                                            progress-bar-success
+                                                        @elseif($listing->speed == 80 || $listing->speed > 60)
+                                                            progress-bar-info
+                                                        @elseif($listing->speed == 60 || $listing->speed > 40)
+                                                            progress-bar-warning
+                                                        @elseif($listing->speed == 40 || $listing->speed > 0)
+                                                            progress-bar-danger
+                                                        @endif progress-bar-striped" role="progressbar" aria-valuenow="{{$listing->speed}}"
+                                                         aria-valuemin="{{$listing->speed}}" aria-valuemax="100" style="width:{{$listing->speed}}%">
+                                                        <span>{{$listing->speed}}%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-2"></div>
+                                            <div class="col-lg-8">
+                                                <label>Blending:</label>
+                                                <div class="progress">
+                                                    <div class="progress-bar
+                                                        @if($listing->blending == 100 || $listing->blending > 80)
+                                                            progress-bar-success
+                                                        @elseif($listing->blending == 80 || $listing->blending > 60)
+                                                            progress-bar-info
+                                                        @elseif($listing->blending == 60 || $listing->blending > 40)
+                                                            progress-bar-warning
+                                                        @elseif($listing->blending == 40 || $listing->blending > 0)
+                                                            progress-bar-danger
+                                                        @endif progress-bar-striped" role="progressbar" aria-valuenow="{{$listing->blending}}"
+                                                         aria-valuemin="{{$listing->blending}}" aria-valuemax="100" style="width:{{$listing->blending}}%">
+                                                        <span>{{$listing->blending}}%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-2"></div>
+                                            <div class="col-lg-8">
+                                                <label>Creativity:</label>
+                                                <div class="progress">
+                                                    <div class="progress-bar
+                                                        @if($listing->creativity == 100 || $listing->creativity > 80)
+                                                            progress-bar-success
+                                                        @elseif($listing->creativity == 80 || $listing->creativity > 60)
+                                                            progress-bar-info
+                                                        @elseif($listing->creativity == 60 || $listing->creativity > 40)
+                                                            progress-bar-warning
+                                                        @elseif($listing->creativity == 40 || $listing->creativity > 0)
+                                                            progress-bar-danger
+                                                        @endif progress-bar-striped" role="progressbar" aria-valuenow="{{$listing->creativity}}"
+                                                         aria-valuemin="{{$listing->creativity}}" aria-valuemax="100" style="width:{{$listing->creativity}}%">
+                                                        <span>{{$listing->creativity}}%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-2"></div>
+                                            <div class="col-lg-8">
+                                                <label>Customer Service:</label>
+                                                <div class="progress">
+                                                    <div class="progress-bar
+                                                        @if($listing->customer == 100 || $listing->customer > 80)
+                                                            progress-bar-success
+                                                        @elseif($listing->customer == 80 || $listing->customer > 60)
+                                                            progress-bar-info
+                                                        @elseif($listing->customer == 60 || $listing->customer > 40)
+                                                            progress-bar-warning
+                                                        @elseif($listing->customer == 40 || $listing->customer > 0)
+                                                            progress-bar-danger
+                                                        @endif progress-bar-striped" role="progressbar" aria-valuenow="{{$listing->customer}}"
+                                                         aria-valuemin="{{$listing->customer}}" aria-valuemax="100" style="width:{{$listing->customer}}%">
+                                                        <span>{{$listing->customer}}%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-2"></div>
+                                            <div class="col-lg-8">
+                                                <label>Overall:</label>
+                                                <div class="progress">
+                                                    <div class="progress-bar
+                                                        @if($listing->overall == 100 || $listing->overall > 80)
+                                                            progress-bar-success
+                                                        @elseif($listing->overall == 80 || $listing->overall > 60)
+                                                            progress-bar-info
+                                                        @elseif($listing->overall == 60 || $listing->overall > 40)
+                                                            progress-bar-warning
+                                                        @elseif($listing->overall == 40 || $listing->overall > 0)
+                                                            progress-bar-danger
+                                                        @endif progress-bar-striped" role="progressbar" aria-valuenow="{{$listing->overall}}"
+                                                         aria-valuemin="{{$listing->overall}}" aria-valuemax="100" style="width:{{$listing->overall}}%">
+                                                        <span>{{$listing->overall}}%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -157,13 +272,38 @@
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="jp_rightside_job_categories_wrapper jp_blog_right_box_search">
                                     <div class="jp_rightside_job_categories_heading" style="background:#0A0;">
-                                        <h4>Rate Service Provider</h4>
+                                        <h4><i class="fa fa-thumbs-up"></i> Rate Service Provider</h4>
                                     </div>
+                                    <br>
                                     <div class="jp_blog_right_search_wrapper">
                                         <form action="{{route('customer.listing.view',['listing' => $listing->id,'user' => auth()->guard('user')->id()])}}" method="post">
                                             {{csrf_field()}}
-                                            <select name="rating" style="width:70%; height:40px; padding:10px; margin-bottom:5px; border:1px solid #F3F3F3;">
-                                                <option value=""> Rate Our Service </option>
+                                            <label>Attention to details:</label><br/>
+                                            <select name="attention" required style="width:70%; height:40px; padding:10px; margin-bottom:5px; border:1px solid #F3F3F3;">
+                                                @foreach($ratings as $rating)
+                                                    <option value="{{$rating->id}}">{{$rating->name}}</option>
+                                                @endforeach
+                                            </select><br/>
+                                            <label>Speed:</label><br/>
+                                            <select name="speed" required style="width:70%; height:40px; padding:10px; margin-bottom:5px; border:1px solid #F3F3F3;">
+                                                @foreach($ratings as $rating)
+                                                    <option value="{{$rating->id}}">{{$rating->name}}</option>
+                                                @endforeach
+                                            </select><br/>
+                                            <label>Blending:</label><br/>
+                                            <select name="blending" required style="width:70%; height:40px; padding:10px; margin-bottom:5px; border:1px solid #F3F3F3;">
+                                                @foreach($ratings as $rating)
+                                                    <option value="{{$rating->id}}">{{$rating->name}}</option>
+                                                @endforeach
+                                            </select><br/>
+                                            <label>Creativity:</label><br/>
+                                            <select name="creativity" required style="width:70%; height:40px; padding:10px; margin-bottom:5px; border:1px solid #F3F3F3;">
+                                                @foreach($ratings as $rating)
+                                                    <option value="{{$rating->id}}">{{$rating->name}}</option>
+                                                @endforeach
+                                            </select><br/>
+                                            <label>Customer Service:</label><br/>
+                                            <select name="customer" required style="width:70%; height:40px; padding:10px; margin-bottom:5px; border:1px solid #F3F3F3;">
                                                 @foreach($ratings as $rating)
                                                     <option value="{{$rating->id}}">{{$rating->name}}</option>
                                                 @endforeach
@@ -280,10 +420,7 @@
                                                                     <p>{{$related[$i]->category->name}}</p>
 
                                                                     <ul>
-                                                                        <?php $formular_down = $related[$i]->formular;?>
-                                                                        <li class='star-block' data-rate='{{$related[$i]->formular}}'>
 
-                                                                        </li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -372,152 +509,7 @@
     <script>
 
 
-	var rating = {{$listing->formular}}
-
-
-
-            if(rating < 1)
-            {
-                 var element5 = document.getElementById("myDIV5");
-        element5.classList.remove("star5");
-
-        var element4 = document.getElementById("myDIV4");
-        element4.classList.remove("star4");
-
-        var element3 = document.getElementById("myDIV3");
-        element3.classList.remove("star3");
-
-        var element2 = document.getElementById("myDIV2");
-        element2.classList.remove("star2");
-
-        var element1 = document.getElementById("myDIV1");
-        element1.classList.remove("star1");
-
-            }
-
-            if(rating >= 1 && rating < 2 )
-            {
-                 var element5 = document.getElementById("myDIV5");
-        element5.classList.remove("star5");
-
-        var element4 = document.getElementById("myDIV4");
-        element4.classList.remove("star4");
-
-        var element3 = document.getElementById("myDIV3");
-        element3.classList.remove("star3");
-
-        var element2 = document.getElementById("myDIV2");
-        element2.classList.remove("star2");
-            }
-
-            if(rating >= 2 && rating < 3 )
-            {
-                 var element5 = document.getElementById("myDIV5");
-        element5.classList.remove("star5");
-
-        var element4 = document.getElementById("myDIV4");
-        element4.classList.remove("star4");
-
-        var element3 = document.getElementById("myDIV3");
-        element3.classList.remove("star3");
-            }
-
-            if(rating >= 3 && rating < 4 )
-            {
-                 var element5 = document.getElementById("myDIV5");
-        element5.classList.remove("star5");
-
-        var element4 = document.getElementById("myDIV4");
-        element4.classList.remove("star4");
-
-            }
-
-            if(rating >= 4 && rating < 5 )
-            {
-
-                 var element5 = document.getElementById("myDIV5");
-        element5.classList.remove("star5");
-            }
 
 
             </script>
-
-
-
-
-
-
-            <script>
-
-
-            var ratingDown = <?php echo $formular_down; ?>
-
-
-
-            if(ratingDown < 1)
-            {
-                 var element5 = document.getElementById("downFIRST5");
-        element5.classList.remove("star5");
-
-        var element4 = document.getElementById("downFIRST4");
-        element4.classList.remove("star4");
-
-        var element3 = document.getElementById("downFIRST3");
-        element3.classList.remove("star3");
-
-        var element2 = document.getElementById("downFIRST2");
-        element2.classList.remove("star2");
-
-        var element1 = document.getElementById("downFIRST1");
-        element1.classList.remove("star1");
-
-            }
-
-            if(ratingDown >= 1 && ratingDown < 2 )
-            {
-                 var element5 = document.getElementById("downFIRST5");
-        element5.classList.remove("star5");
-
-        var element4 = document.getElementById("downFIRST4");
-        element4.classList.remove("star4");
-
-        var element3 = document.getElementById("downFIRST3");
-        element3.classList.remove("star3");
-
-        var element2 = document.getElementById("downFIRST2");
-        element2.classList.remove("star2");
-            }
-
-            if(ratingDown >= 2 && ratingDown < 3 )
-            {
-                 var element5 = document.getElementById("downFIRST5");
-        element5.classList.remove("star5");
-
-        var element4 = document.getElementById("downFIRST4");
-        element4.classList.remove("star4");
-
-        var element3 = document.getElementById("downFIRST3");
-        element3.classList.remove("star3");
-            }
-
-            if(ratingDown >= 3 && ratingDown < 4 )
-            {
-                 var element5 = document.getElementById("downFIRST5");
-        element5.classList.remove("star5");
-
-        var element4 = document.getElementById("downFIRST4");
-        element4.classList.remove("star4");
-
-            }
-
-            if(rating >= 4 && rating < 5 )
-            {
-
-                 var element5 = document.getElementById("downFIRST5");
-        element5.classList.remove("star5");
-            }
-
-
-            </script>
-
 @endsection
