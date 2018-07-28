@@ -49,3 +49,6 @@ Route::group(['prefix' => '/','middleware' => 'auth.business'],function (){
 });
 
 Route::get('log','UserController@getLog');
+Route::get('/phpinfo', function() {
+    return phpinfo();
+});
