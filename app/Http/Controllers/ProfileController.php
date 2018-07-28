@@ -61,7 +61,6 @@ class ProfileController extends Controller
             else
                 Session::flash('error',"$request->type update failed");
         }catch (\Exception $ex){
-            dd($ex);
             Log::error("A fatal error occurred", ['ex' => $ex]);
             Session::flash('error',"$request->type could not be updated");
         }
